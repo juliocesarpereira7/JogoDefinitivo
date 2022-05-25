@@ -82,25 +82,28 @@ TelaMenu(){
 			case 49:
 				system("cls");
 				TelaCadastro();
+				opcao = 0;
 				break;
 			case 50:
 				system("cls");
 				TelaEntrar();
+				opcao = 0;
 				break;
 			case 51:
 				system("cls");
 				TelaJogo();
+				opcao = 0;
 				break;
 			case 52:
 				system("cls");
 				TelaRkg();
+				opcao = 0;
 				break;
 			default:
 				printf("\nERRO!");
 				break;
 		}
-		opcao = 0;
-	} while (opcao == 0);
+	} while (opcao != 0);
 }
 
 
@@ -140,11 +143,27 @@ TelaCadastro(){
 	printf("               ||__________________________________________________________________________________||\n");
 	
 	gotoxy (54,20);
-	scanf("%c", &nome);	
+	scanf("%s", &nome);	
 	gotoxy (54,22);
-	scanf("%c", &email);
+	scanf("%s", &email);
 	gotoxy (54,24);
-	scanf("%c", &senha);
+	scanf("%s", &senha);
+
+	int opcao = 0;
+
+	do{
+		opcao = getch();
+		switch(opcao){
+			case 27:
+				system("cls");
+				TelaMenu();
+				opcao = 0;
+				break;
+			default:
+				printf("\nERRO!");
+				break;
+		}
+	} while (opcao != 0);
 }
 
 
@@ -184,9 +203,30 @@ TelaEntrar(){
 	printf("               ||__________________________________________________________________________________||\n");  
 	
 	gotoxy (54,20);
-	scanf("%c", &nome);	
+	scanf("%s", &nome);	
 	gotoxy (54,22);
-	scanf("%c", &senha);      
+	scanf("%s", &senha);
+
+	int opcao = 0;
+
+	do{
+		opcao = getch();
+		switch(opcao){
+			case 27:
+			    system("cls");
+				TelaMenu();
+				opcao = 0;
+				break;
+			case 13:
+				system("cls");
+				TelaJogo();
+				opcao = 0;
+				break;
+			default:
+				printf("\nERRO!");
+				break;
+		}
+	} while (opcao != 0);   
 }
 
 
