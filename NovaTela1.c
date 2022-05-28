@@ -17,6 +17,7 @@ void limpaCasas();
 void jogada();
 void preencheCampoComDois();
 void gotoxy();
+void posicionando();
 
 // FUNCOES
 int desceNumeros();
@@ -320,15 +321,19 @@ TelaJogo(){
 				switch (tecla) {
 					case 75: //Seta para esquerda
 						jogada(esquerdaNumeros());
+						posicionando(); // imprimir 
 						break;
 					case 72: //Seta para cima
 						jogada(sobeNumeros());
+						posicionando(); // imprimir
 						break;
 					case 77: //Seta para direita
 						jogada(direitaNumeros());
+						posicionando(); // imprimir
 						break;
 					case 80: //Seta para baixo
 						jogada(desceNumeros());
+						posicionando(); // imprimir
 						break;
 					default:
 						printf("\nOpcao invalida!");
@@ -342,6 +347,7 @@ TelaJogo(){
 TelaRkg(){
 	system("cls");
 	
+	printf("\n\n");
 	printf("               ||_____________________________________RANKING______________________________________||\n");
 	printf("               ||                                                                                  ||\n");
 	printf("               ||  1 -                                                                             ||\n");
@@ -382,6 +388,24 @@ int i, y, cont = 2; // 2 aleatorio e limpando
 		for (y = 0; y < 4; y++) {
 			matriz[i][y] = 0;
 		}
+	}
+}
+
+posicionando(){
+	int c, l = 0;
+	c = 24;  //posicionando com gotoxy
+    l = 12;
+	for(int linha = 0;linha < 4; linha++){
+		for(int coluna = 0;coluna < 4; coluna++){
+			gotoxy(c, l);
+			if (matriz[linha][coluna] != 0){
+				printf("%i ", matriz[linha][coluna]);
+				c = c + 21;
+			}
+		}
+		printf("\n");
+		l  =  l + 7;
+		c = 24;
 	}
 }
 			
@@ -520,7 +544,7 @@ int c, l, jogada = 0;
 verificarJogadas(){
 	int c, l;
 
-		for(c = 0; c < 4; c++){
+		for(c = 0; c < 4; c++){  // verificando as jogadas
 			for(l = 0; l < 4; l++){
 				if (matriz[l][c] == 0) {
 					return 1;
@@ -568,7 +592,7 @@ preencheCampoComDois(int cont){
 	int i, y, auxCont; // linha coluna e aux p contador
 
 		srand(time(NULL));
-		auxCont = rand() % cont;
+		auxCont = rand() % cont;  // sorteando num
 		cont = 0;
 
 	for (i = 0; i < 4; i++) {
