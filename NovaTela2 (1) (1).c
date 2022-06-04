@@ -1,4 +1,5 @@
 #include <string.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <windows.h>
 #include <locale.h>
@@ -274,56 +275,27 @@ TelaOpcaoInvalida(){
 
 
 TelaJogo(status){
-	int i, y, z;
-	
-	system ("cls");
-	printf("\n\n");
-	
-	if(status == 0 && verificarJogadas() == 0){
-		printf("\tGAME OVER - SCORE: %d\n", score);
-	} else {
-		printf("\tSCORE: %d\n", score);
-	}
-	for(i = 0; i < 4; i++){
-	  printf("\t-----------------------------------------------------------------\n");
-	  printf("\t|");
-		for(y = 0; y < 4; y++){
-			if(matriz[i][y] == 0)
-				printf("\t \t|");
-			else
-				printf("\t%d\t|", matriz[i][y]);
-		}
-		printf("\n\t-----------------------------------------------------------------\n");
-	}
-	printf("\tUSE AS SETAS DO TECLADO                 <R> PARA REINICIAR O JOGO\n");
-
+	jogada(1);
 	do{
-		limpaCasas();
-		jogada(1);
-		score = 0;
-			do{
-				tecla = getch();
-			
-				switch (tecla) {
-					case 75: //Seta para esquerda
-						jogada(esquerdaNumeros());
-						break;
-					case 72: //Seta para cima
-						jogada(sobeNumeros());
-						break;
-					case 77: //Seta para direita
-						jogada(direitaNumeros());
-						break;
-					case 80: //Seta para baixo
-						jogada(desceNumeros());
-						break;
-					default:
-						printf("\n");
-						break;
-				}	
-			}while(tecla != 114); // Sai se apertar a tecla R ou se resultado for Game Over	
-
-	}while(tecla != 27); // Sai se apertar a tecla ESC
+		tecla = getch();
+		
+		switch (tecla) {
+		case 75: //Seta para esquerda
+			jogada(esquerdaNumeros());
+			break;
+		case 72: //Seta para cima
+			jogada(sobeNumeros());
+			break;
+		case 77: //Seta para direita
+			jogada(direitaNumeros());
+			break;
+		case 80: //Seta para baixo
+			jogada(desceNumeros());
+			break;
+		}	
+	}while(tecla != 114); // Sai se apertar a tecla R ou se resultado for Game Over	
+	return 0;
+	//system("pause");
 }
 
 TelaRkg(){
@@ -518,10 +490,7 @@ int c, l, jogada = 0;
 		}
 	}
 		return jogada;
-}
-			
-			
-			
+}		
 			
 verificarJogadas(){
 	int c, l;
@@ -560,12 +529,12 @@ jogada(int status) {
 
 	if(status != 0){
 		preencheCampoComDois(cont);
-		TelaJogo(1);
+		desenha(1);
 	} else {
 		if(verificarJogadas() == 1){
-		TelaJogo(1);
+			desenha(1);
 		} else {
-		TelaJogo(0);
+			desenha(0);
 		}
 	}
 }
@@ -587,6 +556,29 @@ preencheCampoComDois(int cont){
 			}
 		}
 	}
+}
+
+void desenha(int status){	
+	int i, y, z;
+
+	system("cls");
+	if(status == 0 && verificarJogadas() == 0){
+		printf("\tGAME OVER - SCORE: %d\n", score);
+	} else {
+		printf("\tSCORE: %d\n", score);
+	}
+	for(i = 0; i < 4; i++){
+	  printf("\t-----------------------------------------------------------------\n");
+	  printf("\t|");
+		for(y = 0; y < 4; y++){
+			if(matriz[i][y] == 0)
+				printf("\t \t|");
+			else
+				printf("\t%d\t|", matriz[i][y]);
+		}
+		printf("\n\t-----------------------------------------------------------------\n");
+	}
+	printf("\tUSE AS SETAS DO TECLADO                 <R> PARA REINICIAR O JOGO\n");
 }
 
 gotoxy(int x, int y){
